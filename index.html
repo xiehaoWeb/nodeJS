@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="text" id="name">
+		<button type="button" onclick="login()">登陆</button>
+		<script>
+			function login() {
+				const NAME_VALUE = document.getElementById("name").value
+				var xhr = new XMLHttpRequest();
+				xhr.open('get', '/login?name='+NAME_VALUE, true)
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState === 4) {
+						if (xhr.status === 304 || (xhr.status >= 200 && xhr.status < 300)) {
+							if(xhr.responseText==='true'){
+								alert("登陆正确")
+							}else{
+								alert("登陆错误")
+							}
+						} else {
+							console.log('type: error, errCode:', xhr.status)
+						}
+					}
+				}
+				xhr.send()
+			}
+		</script>
+	</body>
+</html>
